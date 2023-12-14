@@ -1,0 +1,20 @@
+{
+    "name": "electron/fly-data",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Electron\\": "src/",
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David Bene",
+            "email": "davidbenn9950@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "vlucas/phpdotenv": "^5.6@dev"
+    }
+}
