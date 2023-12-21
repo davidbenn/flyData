@@ -6,7 +6,7 @@ namespace Electron\Contracts\Database;
 
 interface Interceptor
 {
-    public function setConfig(array $config = []) : void;
+    public function setConfig(array $path = null) : void;
 
     public function setConnection(string $connection) : void;
 

@@ -5,7 +5,7 @@ namespace Electron\Database;
 use Electron\Contracts\Database\Interceptor as InterceptorContract;
 use Dotenv\Dotenv;
 
-abstract class Interceptor extends Dotenv implements InterceptorContract {
+abstract class Interceptor implements InterceptorContract {
 
     private array $connection = [];
 
@@ -13,19 +13,23 @@ abstract class Interceptor extends Dotenv implements InterceptorContract {
      * Create new Interceptor instance.
      */
 
-    public function __construct()
-    {
-        $this->createImmutable(__DIR__);
+    public function __construct(){
 
-        $this->connection = $this->load();
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
+ 
+        if(!$dotenv->load()){
+            throw new \Exception('Error loading .env file not found!');
+        }
+        
+        $this->setConfig(realpath(dirname(__DIR__, 2) . '/config/database.php'));
 
-        var_dump($this->load(), 'aqq');
-
-        exit;
     }
 
-    public function setConfig(array $config = []) : void{
-        $this->connection = $config;
+    public function setConfig(string $path = null) : void {
+
+        if($path && file_exists($path)){
+            $this->connection = require $path;
+        }
     }
 
     public function setConnection(string $connection) : void{
